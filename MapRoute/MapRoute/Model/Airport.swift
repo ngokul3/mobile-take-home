@@ -9,9 +9,10 @@
 import Foundation
 
 struct Airport {
-    let city: String
-    let country: String
-    let codeIATA: String
-    let latitude: Double
-    let longitude: Double
+    var name: String?
+    var city: String?
+    var country: String?
+    var codeIATA: String?
+    var latitude: Double?
+    var longitude: Double?
 }

@@ -18,11 +18,5 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>RouteFile</key>
-	<string>routes</string>
-	<key>AirlineFile</key>
-	<string>airlines</string>
-	<key>AirportFile</key>
-	<string>airport</string>
 </dict>
 </plist>

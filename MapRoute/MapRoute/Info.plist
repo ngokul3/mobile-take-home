@@ -41,5 +41,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>ResourceList</key>
+	<dict>
+		<key>route</key>
+		<string>routes</string>
+		<key>airline</key>
+		<string>airlines</string>
+		<key>airport</key>
+		<string>airports</string>
+	</dict>
 </dict>
 </plist>

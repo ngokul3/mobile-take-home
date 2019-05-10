@@ -9,7 +9,7 @@
 import Foundation
 
 struct Route {
-    let airlineId: String
-    let origin: String
-    let destination: String
+    var airlineId: String?
+    var origin: String?
+    var destination: String?
 }

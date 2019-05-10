@@ -8,14 +8,10 @@
 
 import Foundation
 
-enum Resource {
-    case route
-    case airline
-    case airport
-}
+
 
 protocol NetworkProtocol{
-     func loadResource(resource: Resource, finished: @escaping (_ dataDict: NSDictionary?, _ errorMsg: String?)  -> ())
+     func loadResource(resource: Resource, finished : @escaping (NSArray?, String?)->Void )
 }
 
 class Network{
@@ -23,17 +19,8 @@ class Network{
     private var airportJSONFileNameOpt : String?
     private var airlineJSONFileNameOpt : String?
     private static var instance: NetworkProtocol?
-    
-    private let ROUTE_FILE = "RouteFile"
-    private let AIRPORT_FILE = "AirportFile"
-    private let AIRLINE_FILE = "AirlineFile"
-    
-    var session: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10.0
-        let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: nil)
-        return session
-    }()
+    private let RESOURCE_LIST = "ResourceList"
+    var resourceDictOpt: [String: String]?
     
     init()
     {
@@ -41,12 +28,11 @@ class Network{
             let dictRootOpt = NSDictionary(contentsOfFile: path)
             
             guard let dict = dictRootOpt else{
-                preconditionFailure("Resource files are not available")
+                preconditionFailure("Resource not configured")
             }
             
-            routeJSONFileNameOpt = dict[ROUTE_FILE] as? String
-            airportJSONFileNameOpt = dict[AIRPORT_FILE] as? String
-            airlineJSONFileNameOpt = dict[AIRLINE_FILE] as? String
+            resourceDictOpt = dict[RESOURCE_LIST] as? [String: String]
+
         }
     }
 }
@@ -62,10 +48,38 @@ extension Network{
         return inst
     }
 }
+
 extension Network: NetworkProtocol{
-    func loadResource(resource: Resource, finished: @escaping (NSDictionary?, String?) -> ()) {
+    func loadResource(resource: Resource, finished : @escaping (NSArray?, String?)->Void ) {
+        
+        guard let resourceDict = resourceDictOpt else{
+            preconditionFailure("Resource files are not available")
+        }
+        
+        let resourceFileName: String?
+        resourceFileName = resourceDict[resource.resourceName()]
+        
+        DispatchQueue.global(qos: .background).async{
+            let jsonResult: Any?
+            if let path = Bundle.main.path(forResource: resourceFileName, ofType: "json")
+            {
+                do{
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                }
+                catch{
+                    finished(nil, "InvalidJsonFile")
+                    return
+                }
+                
+                guard let resultArray = jsonResult as? NSArray else {
+                    finished(nil, "InvalidJsonFile")
+                    return
+                }
+                
+                finished(resultArray, nil)
+            }
+        }
         
     }
-    
-    
 }

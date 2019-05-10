@@ -10,7 +10,8 @@
 import Foundation
 
 struct Airline {
-    let twoDigitCode: String
-    let threeDigitCode: String
-    let country: String
+    var name: String?
+    var twoDigitCode: String?
+    var threeDigitCode: String?
+    var country: String?
 }
