@@ -7,24 +7,23 @@
 //
 
 import Foundation
-
 enum Resource: String, CaseIterable {
     case route
     case airline
     case airport
     
     func resourceName() ->String { return self.rawValue }
-    
 }
 
 class Processor{
-    private var networkObjOpt: NetworkProtocol?
-    private var routeArray =  [Route]()
-    private var airportArray = [Airport]()
-    private var airlineArray = [Airline]()
+    var networkObjOpt: NetworkProtocol?
+    var routeArray =  [Route]()
+    var airportArray = [Airport]()
+    var airlineArray = [Airline]()
 }
 
 extension Processor{
+    
     func setUpResources(completed: @escaping ()->Void){
         var resourceCompleteSet = Set<Resource>()
         for resource in Resource.allCases{
@@ -37,22 +36,23 @@ extension Processor{
         }
     }
     
-    func processResource(resource: Resource, completed : @escaping ()->Void){
+    private func processResource(resource: Resource, completed : @escaping ()->Void){
+        let RESOURCE_ERROR = "Error loading Resource"
         
         networkObjOpt?.loadResource(resource: resource, finished: ({[weak self] (jsonArray, error) in
             
             if let _ = error{
-                preconditionFailure("JSON file not valid")
+                preconditionFailure(RESOURCE_ERROR)
             }
             
             guard let resourceArray = jsonArray else {
-                preconditionFailure("Json file could not be parsed into Array")
+                preconditionFailure(RESOURCE_ERROR)
             }
             
             OperationQueue.main.addOperation {
                 resourceArray.forEach({ (arg) in
                     guard let resourceDict = arg as? NSDictionary else{
-                        preconditionFailure("JSON file not valid")
+                        preconditionFailure(RESOURCE_ERROR)
                     }
                     
                     switch resource{
@@ -77,13 +77,20 @@ extension Processor{
                     }
                     
                 })
+                
+                let nsNotification = NSNotification(name: NSNotification.Name(rawValue: Notifications.ResourcesArrived), object: nil)
+                NotificationCenter.default.post(name: nsNotification.name, object: nil,
+                                                    userInfo:[Notifications.Route: self?.routeArray ?? [Route](),
+                                                            Notifications.Airport: self?.airportArray ?? [Airport](),
+                                                            Notifications.Airline: self?.airlineArray ?? [Airline]()])
+
                 completed()
             }
             
         }))
     }
     
-    func loadRoute(resourceDict: NSDictionary)->Route{
+    private func loadRoute(resourceDict: NSDictionary)->Route{
         var routeObj = Route()
         routeObj.airlineId = resourceDict["Airline Id"] as? String
         routeObj.origin = resourceDict["Origin"] as? String
@@ -91,7 +98,7 @@ extension Processor{
         return routeObj
     }
     
-    func loadAirline(resourceDict: NSDictionary)->Airline{
+    private func loadAirline(resourceDict: NSDictionary)->Airline{
         var airlineObj = Airline()
         airlineObj.name = resourceDict["Name"] as? String
         airlineObj.country = resourceDict["Country"] as? String
@@ -100,7 +107,7 @@ extension Processor{
         return airlineObj
     }
     
-    func loadAirport(resourceDict: NSDictionary)->Airport{
+    private func loadAirport(resourceDict: NSDictionary)->Airport{
         var airlineObj = Airport()
         airlineObj.name = resourceDict["Name"] as? String
         airlineObj.country = resourceDict["Country"] as? String
