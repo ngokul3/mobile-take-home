@@ -11,13 +11,14 @@ import Foundation
 
 public class Node {
     
-    var key: String?
+    var key: String
     var neighbors: Array<Edge>
     public var visited: Bool
     public var distance: Int?
     
     init() {
         self.neighbors = Array<Edge>()
+        self.key = ""
         self.visited = false
     }
     
@@ -32,10 +33,10 @@ public class Node {
 public class Edge {
     
     var neighbor: Node
-    var weight: Int
+    var distance: Double
     
     init() {
-        weight = 0
+        distance = 0.0
         self.neighbor = Node()
     }
     
@@ -44,30 +45,38 @@ public class Edge {
 public class Graph {
     
     //declare graph canvas
-    private var canvas: Array<Node>
+    //private var canvas: Array<Node>
+    private var nodeSet: Set<String>
     public var isDirected: Bool
     
     init() {
-        canvas = Array<Node>()
+       // canvas = Array<Node>()
+         nodeSet = Set<String>()
         isDirected = true
     }
     
     //create a new vertex
-    func addNode(key: String) -> Node {
+    func addNode(key: String) -> Node? {
         
+        if(nodeSet.contains(key)){
+            return nil
+        }
         //set the key
         let childNode: Node = Node()
         childNode.key = key
         
         
         //add the childNode to the graph canvas
-        canvas.append(childNode)
+        //canvas.append(childNode)
+        
+        
+        nodeSet.insert(childNode.key)
         
         return childNode
     }
     
     //add edge to source vertex
-    func addEdge(source: Node, neighbor: Node, weight: Int) {
+    func addEdge(source: Node, neighbor: Node, distance: Double) {
         
         //new edge
         let newEdge = Edge()
@@ -75,7 +84,7 @@ public class Graph {
         
         //establish default properties
         newEdge.neighbor = neighbor
-        newEdge.weight = weight
+        newEdge.distance = distance
         source.neighbors.append(newEdge)
         //check condition for an undirected graph
         if isDirected == false {
@@ -84,20 +93,20 @@ public class Graph {
             
             //establish the reversed properties
             reverseEdge.neighbor = source
-            reverseEdge.weight = weight
+            reverseEdge.distance = distance
             neighbor.neighbors.append(reverseEdge)
         }
     }
     
-    func depthFirstSearch(_ graph: Graph, source: Node) -> [String]? {
+    func depthFirstSearch(source: Node) -> [String]? {
         var nodesExplored = [source.key]
         source.visited = true
         
         for edge in source.neighbors {
             if !edge.neighbor.visited {
-                nodesExplored += depthFirstSearch(graph, source: edge.neighbor) ?? [""] 
+                nodesExplored += depthFirstSearch(source: edge.neighbor) ?? [""]
             }
         }
-        return nodesExplored as? [String]
+        return nodesExplored 
     }
 }

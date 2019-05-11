@@ -20,27 +20,27 @@ class MapRouteTests: XCTestCase {
     
     func testGraph(){
         //Distance is 2
-        var routeObj1 = Route()
+        let routeObj1 = Route()
         routeObj1.origin = "A"
         routeObj1.destination = "B"
         
         //Distance is 8
-        var routeObj2 = Route()
+        let routeObj2 = Route()
         routeObj2.origin = "A"
         routeObj2.destination = "C"
         
         
         //Distance is 1
-        var routeObj3 = Route()
+        let routeObj3 = Route()
         routeObj3.origin = "B"
         routeObj3.destination = "D"
         
         //Distance is 2
-        var routeObj4 = Route()
+        let routeObj4 = Route()
         routeObj4.origin = "D"
         routeObj4.destination = "C"
         
-        var routeObj5 = Route()
+        let routeObj5 = Route()
         routeObj5.origin = "E"
         routeObj5.destination = "F"
         
@@ -58,13 +58,15 @@ class MapRouteTests: XCTestCase {
         let v5 = graph.addNode(key: "E")
         let v6 = graph.addNode(key: "F")
         
-        graph.addEdge(source: v1, neighbor: v2, weight: 2)
-        graph.addEdge(source: v1, neighbor: v3, weight: 8)
-        graph.addEdge(source: v2, neighbor: v4, weight: 1)
-        graph.addEdge(source: v4, neighbor: v3, weight: 2)
-        graph.addEdge(source: v5, neighbor: v6, weight: 12)
+        //Forced unwrap ignore - Just testing with known values
         
-        let nodesOpt = graph.depthFirstSearch(graph, source: v1)
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        graph.addEdge(source: v1!, neighbor: v3!, distance: 8)
+        graph.addEdge(source: v2!, neighbor: v4!, distance: 1)
+        graph.addEdge(source: v4!, neighbor: v3!, distance: 2)
+        graph.addEdge(source: v5!, neighbor: v6!, distance: 12)
+        
+        let nodesOpt = graph.depthFirstSearch(source: v5!)
         
         if let nodes = nodesOpt{
             for node in nodes{
@@ -75,11 +77,11 @@ class MapRouteTests: XCTestCase {
     }
     func testDirectConnection(){
 
-        var routeObj1 = Route()
+        let routeObj1 = Route()
         routeObj1.origin = "YAM"
         routeObj1.destination = "YYZ"
 
-        var routeObj2 = Route()
+        let routeObj2 = Route()
         routeObj2.origin = "YBC"
         routeObj2.destination = "YUL"
 

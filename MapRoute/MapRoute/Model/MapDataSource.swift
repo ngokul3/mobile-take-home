@@ -31,6 +31,7 @@ class RouteResult: NSObject{
 
 class RouteMaker{
     var pointOfInterest: PointOfInterest?
+    var graph: Graph?
     var routeArray: [Route]?
     var airportArray: [Airport]?
     private var resultArray: RouteResult?

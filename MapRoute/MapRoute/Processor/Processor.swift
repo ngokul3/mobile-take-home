@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import MapKit
+
 enum Resource: String, CaseIterable {
     case route
     case airline
@@ -20,6 +22,33 @@ class Processor{
     var routeArray =  [Route]()
     var airportArray = [Airport]()
     var airlineArray = [Airline]()
+    
+    lazy var airportGraph : ()->Graph = {
+        var nodeDict = [String: Node]()
+        var locationDict = [String: CLLocationCoordinate2D]()
+        let graph = Graph()
+        
+        self.airportArray.forEach({ (airport) in
+            if let airportCode = airport.codeIATA{
+                if let node = graph.addNode(key: airportCode){
+                    nodeDict[airportCode] = node
+                }
+                locationDict[airportCode] = CLLocationCoordinate2D(latitude: airport.latitude ?? 0.0, longitude: airport.longitude ?? 0.0)
+            }
+        })
+        
+        self.routeArray.forEach({ (route) in
+            if let originLocation  = locationDict[route.origin ?? ""],
+                let destLocation = locationDict[route.destination ?? ""],
+                let originNode = nodeDict[route.origin ?? ""],
+                let destNode = nodeDict[route.destination ?? ""]{
+                
+                    let distanceBetweenAirports = route.distance(originLocation.latitude, originLocation.longitude, destLocation.latitude, destLocation.longitude)
+                    graph.addEdge(source: originNode, neighbor: destNode, distance: distanceBetweenAirports)
+            }
+        })
+        return graph
+    }
 }
 
 extension Processor{
@@ -91,7 +120,7 @@ extension Processor{
     }
     
     private func loadRoute(resourceDict: NSDictionary)->Route{
-        var routeObj = Route()
+        let routeObj = Route()
         routeObj.airlineId = resourceDict["Airline Id"] as? String
         routeObj.origin = resourceDict["Origin"] as? String
         routeObj.destination = resourceDict["Destination"] as? String
