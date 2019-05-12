@@ -38,13 +38,13 @@ class ModelManager: ModelManagerProtocol{
             print("Setting up resources complete")
         })
         
-        let graph = processor.airportGraph
-        let nodesOpt = graph.depthFirstSearch(source: v5!)
+        //let graph = processor.airportGraph
+       // let nodesOpt = graph.depthFirstSearch(source: v5!)
         
-        if let nodes = nodesOpt{
-            for node in nodes{
-                print(node)
-            }
-        }
+//        if let nodes = nodesOpt{
+//            for node in nodes{
+//                print(node)
+//            }
+//        }
     }
 }

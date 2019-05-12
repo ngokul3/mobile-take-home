@@ -74,6 +74,11 @@ class MapRouteTests: XCTestCase {
             }
         }
         
+        let path = graph.shortestPath(source: v1!, destination: v3!)
+        if let succession: [String] = path?.array.reversed().compactMap({ $0}).map({$0.key}) {
+            print("shortest path: \(succession)")
+        }
+        
     }
     func testDirectConnection(){
 
