@@ -60,15 +60,7 @@ extension ModelManager{
         }
         
         filteredAirports =  airportArray.filter({(arg1) in
-//            if let _ = arg1.codeIATA?.lowercased().contains(enteredName.lowercased()){
-//                return true
-//            }else if let _ = arg1.name?.lowercased().contains(enteredName.lowercased()){
-//                return true
-//            }else{
-//                return false
-//            }
             return arg1.codeIATA?.lowercased().contains(enteredName.lowercased()) ?? false
-           // return arg1.codeIATA?.lowercased().contains(enteredName.lowercased()) ?? false
         })
     }
     

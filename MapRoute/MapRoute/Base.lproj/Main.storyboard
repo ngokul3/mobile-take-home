@@ -19,21 +19,80 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c6V-5P-KW6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="219" width="414" height="677"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNR-dq-B2x">
+                                <rect key="frame" x="0.0" y="88" width="414" height="109"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="From " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y89-er-xk1">
+                                        <rect key="frame" x="21" y="10" width="365" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="To" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7FB-uC-rcx">
+                                        <rect key="frame" x="21" y="48" width="365" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD4-b4-UjD">
+                                        <rect key="frame" x="349" y="12" width="17" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="PTT-eb-jQF"/>
+                                            <constraint firstAttribute="height" constant="23" id="nW2-aQ-NqB"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="searchImage"/>
+                                        <connections>
+                                            <segue destination="ZDS-hl-XzZ" kind="showDetail" id="aEw-x1-I8p"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7FB-uC-rcx" firstAttribute="leading" secondItem="TNR-dq-B2x" secondAttribute="leading" constant="21" id="GZ3-36-6IB"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZD4-b4-UjD" secondAttribute="trailing" constant="48" id="Gmq-gn-fR1"/>
+                                    <constraint firstItem="7FB-uC-rcx" firstAttribute="trailing" secondItem="Y89-er-xk1" secondAttribute="trailing" id="R1x-pV-S7a"/>
+                                    <constraint firstAttribute="trailing" secondItem="7FB-uC-rcx" secondAttribute="trailing" constant="28" id="Yxj-9O-zgt"/>
+                                    <constraint firstItem="ZD4-b4-UjD" firstAttribute="top" secondItem="Y89-er-xk1" secondAttribute="top" constant="2" id="a5H-jE-eWj"/>
+                                    <constraint firstAttribute="height" constant="109" id="fLR-xh-wBx"/>
+                                    <constraint firstItem="7FB-uC-rcx" firstAttribute="leading" secondItem="Y89-er-xk1" secondAttribute="leading" id="oE4-9e-zRQ"/>
+                                    <constraint firstItem="ZD4-b4-UjD" firstAttribute="firstBaseline" secondItem="Y89-er-xk1" secondAttribute="baseline" id="qGH-Ru-sBH"/>
+                                    <constraint firstItem="Y89-er-xk1" firstAttribute="top" secondItem="TNR-dq-B2x" secondAttribute="top" constant="10" id="rk0-2I-cnn"/>
+                                    <constraint firstItem="7FB-uC-rcx" firstAttribute="top" secondItem="Y89-er-xk1" secondAttribute="bottom" constant="8" id="w7s-x6-xMQ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJP-cA-bRw">
+                                <rect key="frame" x="20" y="181" width="365" height="30"/>
+                                <state key="normal" title="Find Route"/>
+                                <connections>
+                                    <action selector="btnFindRouteOnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oma-bx-ik4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jJP-cA-bRw" secondAttribute="trailing" symbolic="YES" id="0m3-vj-yIr"/>
+                            <constraint firstItem="jJP-cA-bRw" firstAttribute="top" secondItem="7FB-uC-rcx" secondAttribute="bottom" constant="15" id="D6E-yZ-3yn"/>
+                            <constraint firstItem="TNR-dq-B2x" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Dbl-qF-nWU"/>
+                            <constraint firstItem="c6V-5P-KW6" firstAttribute="top" secondItem="TNR-dq-B2x" secondAttribute="bottom" constant="22" id="L6C-PF-cN2"/>
+                            <constraint firstItem="jJP-cA-bRw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="RY4-27-ZCD"/>
                             <constraint firstItem="c6V-5P-KW6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cKT-tF-NDV"/>
                             <constraint firstItem="c6V-5P-KW6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dab-Y3-cw9"/>
+                            <constraint firstItem="jJP-cA-bRw" firstAttribute="width" secondItem="7FB-uC-rcx" secondAttribute="width" id="m4x-zM-Pav"/>
+                            <constraint firstItem="TNR-dq-B2x" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="qvU-8M-lcb"/>
                             <constraint firstAttribute="bottom" secondItem="c6V-5P-KW6" secondAttribute="bottom" id="vL1-uz-LnI"/>
-                            <constraint firstItem="c6V-5P-KW6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zsZ-3d-1OX"/>
+                            <constraint firstItem="jJP-cA-bRw" firstAttribute="height" secondItem="7FB-uC-rcx" secondAttribute="height" id="wBN-vk-rAF"/>
+                            <constraint firstItem="TNR-dq-B2x" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wVz-m0-iw0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="tdt-7j-KFJ"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="fV0-is-I3T" id="l9o-u1-b0v"/>
+                        <outlet property="searchBarView" destination="TNR-dq-B2x" id="FJr-pF-prJ"/>
+                        <outlet property="searchDisplayController" destination="Qvo-pf-Xrd" id="ksp-aF-BWh"/>
+                        <outlet property="txtFromField" destination="Y89-er-xk1" id="0Y2-I4-Lri"/>
+                        <outlet property="txtToField" destination="7FB-uC-rcx" id="buv-oO-Dpo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -45,8 +104,24 @@
                         <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="OQ0-Ve-dve"/>
                     </connections>
                 </searchDisplayController>
+                <searchDisplayController id="C8L-pW-43J">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="PoC-PN-gre"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="KNE-RE-eJ4"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="mXm-Mz-oGy"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="XHg-F6-uh0"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="Qvo-pf-Xrd">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="GXz-ft-XhU"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="sHp-Vl-Y1n"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="8KK-Sf-lEV"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="ynn-qo-lhz"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="657.97101449275362" y="127.90178571428571"/>
+            <point key="canvasLocation" x="656.52173913043487" y="127.90178571428571"/>
         </scene>
         <!--Airport Location View Controller-->
         <scene sceneID="OIv-ny-epe">
@@ -80,10 +155,11 @@
                             <outlet property="delegate" destination="q3e-5g-31Y" id="LQG-iL-iJO"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="sjC-pu-yEv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYC-aa-qql" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1316" y="128"/>
+            <point key="canvasLocation" x="2001" y="133"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RtM-eY-ddL">
@@ -103,5 +179,26 @@
             </objects>
             <point key="canvasLocation" x="-49.275362318840585" y="132.58928571428572"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="x3W-FT-UQg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SQH-sg-Def" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZDS-hl-XzZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hAg-9O-vhs">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="q3e-5g-31Y" kind="relationship" relationship="rootViewController" id="67W-GV-3IM"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1315.9420289855072" y="127.90178571428571"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="searchImage" width="225" height="225"/>
+    </resources>
 </document>
