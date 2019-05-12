@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ModelManagerProtocol{
-    func loadResources()
+    func loadResources()->Graph
 }
 
 class ModelManager: ModelManagerProtocol{
@@ -24,27 +24,22 @@ class ModelManager: ModelManagerProtocol{
         return inst
     }
     
-    func loadResources() {
+    func loadResources()-> Graph {
         let processor = Processor()
         processor.networkObjOpt = Network()
         processor.setUpResources(completed: {
-            processor.routeArray.forEach(({ (route) in
-                processor.airportArray.forEach({ (airport) in
-                    if(airport.codeIATA == route.origin ){
-                        print(airport.codeIATA)
-                    }
-                })
-            }))
+//            processor.routeArray.forEach(({ (route) in
+//                processor.airportArray.forEach({ (airport) in
+//                    if(airport.codeIATA == route.origin ){
+//                        print(airport.codeIATA)
+//                    }
+//                })
+//            }))
             print("Setting up resources complete")
         })
         
-        //let graph = processor.airportGraph
-       // let nodesOpt = graph.depthFirstSearch(source: v5!)
-        
-//        if let nodes = nodesOpt{
-//            for node in nodes{
-//                print(node)
-//            }
-//        }
+        let graph = processor.airportGraph()
+        return graph
+
     }
 }

@@ -44,33 +44,25 @@ public class Edge {
 
 public class Graph {
     
-    //declare graph canvas
-    //private var canvas: Array<Node>
-    private var nodeSet: Set<String>
+    private var nodeDict: [String: Node]
     public var isDirected: Bool
     
     init() {
-       // canvas = Array<Node>()
-         nodeSet = Set<String>()
+        nodeDict = [String: Node]()
         isDirected = true
     }
     
     //create a new vertex
     func addNode(key: String) -> Node? {
         
-        if(nodeSet.contains(key)){
+        if(nodeDict[key] != nil){
             return nil
         }
         //set the key
         let childNode: Node = Node()
         childNode.key = key
         
-        
-        //add the childNode to the graph canvas
-        //canvas.append(childNode)
-        
-        
-        nodeSet.insert(childNode.key)
+        nodeDict[key] = childNode
         
         return childNode
     }
@@ -98,6 +90,11 @@ public class Graph {
         }
     }
     
+    
+    func retrieveNode(key:String)->Node?{
+        return nodeDict[key]
+    }
+    
     func depthFirstSearch(source: Node) -> [String]? {
         var nodesExplored = [source.key]
         source.visited = true
@@ -110,29 +107,7 @@ public class Graph {
         return nodesExplored
     }
     
-    func shortestPath(source: Node, destination: Node) -> Path? {
-        var frontier: [Path] = [] {
-            didSet { frontier.sort { return $0.totalDistance < $1.totalDistance } } // the frontier has to be always ordered
-        }
-        
-        frontier.append(Path(to: source, edgeOpt: nil, knownPath: nil)) // the frontier is made by a path that starts nowhere and ends in the source
-        
-        while !frontier.isEmpty {
-            let cheapestPathInFrontier = frontier.removeFirst() // getting the cheapest path available
-            guard !cheapestPathInFrontier.node.visited else { continue } // making sure we haven't visited the node already
-            
-            if cheapestPathInFrontier.node === destination {
-                return cheapestPathInFrontier // found the cheapest path 😎
-            }
-            
-            cheapestPathInFrontier.node.visited = true
-            
-            for connection in cheapestPathInFrontier.node.neighbors where !connection.neighbor.visited { // adding new paths to our frontier
-                frontier.append(Path(to: connection.neighbor, edgeOpt: connection, knownPath: cheapestPathInFrontier))
-            }
-        } // end while
-        return nil // we didn't find a path 😣
-    }
+    
     
 }
 
@@ -170,8 +145,28 @@ extension Path {
     }
 }
 
-class ShortestPathAlgo{
-    func findRoute(originNode: Node, destNode: Node){
+class DijkstraAlgo{
+    func shortestPath(source: Node, destination: Node) -> Path? {
+        var frontier: [Path] = [] {
+            didSet { frontier.sort { return $0.totalDistance < $1.totalDistance } } // the frontier has to be always ordered
+        }
         
+        frontier.append(Path(to: source, edgeOpt: nil, knownPath: nil)) // the frontier is made by a path that starts nowhere and ends in the source
+        
+        while !frontier.isEmpty {
+            let cheapestPathInFrontier = frontier.removeFirst() // getting the cheapest path available
+            guard !cheapestPathInFrontier.node.visited else { continue } // making sure we haven't visited the node already
+            
+            if cheapestPathInFrontier.node === destination {
+                return cheapestPathInFrontier // found the cheapest path 😎
+            }
+            
+            cheapestPathInFrontier.node.visited = true
+            
+            for connection in cheapestPathInFrontier.node.neighbors where !connection.neighbor.visited { // adding new paths to our frontier
+                frontier.append(Path(to: connection.neighbor, edgeOpt: connection, knownPath: cheapestPathInFrontier))
+            }
+        } // end while
+        return nil // we didn't find a path 😣
     }
 }
