@@ -12,5 +12,6 @@ struct Notifications {
     static let Airline = "Airline Model"
     static let Airport = "Airport Model"
     static let ResourcesArrived = "All resources arrived"
+    static let AirportFiltered = "Airport filter complete"
    
 }
