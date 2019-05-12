@@ -51,12 +51,12 @@ class MapRouteTests: XCTestCase {
         routeArray.append(routeObj5)
         
         let graph = Graph()
-        let v1 = graph.addNode(key: "A")
-        let v2 = graph.addNode(key: "B")
-        let v3 = graph.addNode(key: "C")
-        let v4 = graph.addNode(key: "D")
-        let v5 = graph.addNode(key: "E")
-        let v6 = graph.addNode(key: "F")
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v4 = graph.addNode(airport: Airport(name: "D", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v5 = graph.addNode(airport: Airport(name: "E", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v6 = graph.addNode(airport: Airport(name: "F", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
         
         //Forced unwrap ignore - Just testing with known values
         
@@ -74,9 +74,9 @@ class MapRouteTests: XCTestCase {
             }
         }
         
-        let algo = DijkstraAlgo()
+        let algo = PathFinder()
         let path = algo.shortestPath(source: v1!, destination: v3!)
-        if let succession: [String] = path?.array.reversed().compactMap({ $0}).map({$0.key}) {
+        if let succession: [String] = path?.nodeArray.reversed().compactMap({ $0}).map({$0.key}) {
             print("shortest path: \(succession)")
         }
         

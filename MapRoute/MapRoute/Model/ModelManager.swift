@@ -11,7 +11,7 @@ import Foundation
 protocol ModelManagerProtocol{
     var filteredAirports : [Airport]{get set}
     var currentFilter : String {get set}
-    func loadResources()->Graph
+    func getGraph()->Graph?
 }
 
 class ModelManager: ModelManagerProtocol{
@@ -47,6 +47,13 @@ class ModelManager: ModelManagerProtocol{
         filteredAirports = [Airport]()
         processor = Processor()
         processor?.networkObjOpt = Network()
+        loadResources()
+    }
+    
+    private func loadResources() {
+        processor?.setUpResources(completed: {
+            print("Setting up resources complete")
+        })
     }
 }
 
@@ -64,20 +71,10 @@ extension ModelManager{
         })
     }
     
-    func loadResources()-> Graph {
-        processor?.setUpResources(completed: {
-//            processor.routeArray.forEach(({ (route) in
-//                processor.airportArray.forEach({ (airport) in
-//                    if(airport.codeIATA == route.origin ){
-//                        print(airport.codeIATA)
-//                    }
-//                })
-//            }))
-            print("Setting up resources complete")
-        })
-        
+ 
+    
+    func getGraph() -> Graph? {
         let graph = processor?.airportGraph()
-        return graph ?? Graph()
-
+        return graph
     }
 }

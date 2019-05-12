@@ -30,7 +30,7 @@ class Processor{
         
         self.airportArray.forEach({ (airport) in
             if let airportCode = airport.codeIATA{
-                if let node = graph.addNode(key: airportCode){
+                if let node = graph.addNode(airport: airport){
                     nodeDict[airportCode] = node
                 }
                 locationDict[airportCode] = CLLocationCoordinate2D(latitude: airport.latitude ?? 0.0, longitude: airport.longitude ?? 0.0)
@@ -56,9 +56,14 @@ extension Processor{
     func setUpResources(completed: @escaping ()->Void){
         var resourceCompleteSet = Set<Resource>()
         for resource in Resource.allCases{
-            self.processResource(resource: resource, completed: {
+            self.processResource(resource: resource, completed: {[weak self] in
                 resourceCompleteSet.insert(resource)
                 if(Resource.allCases.count == resourceCompleteSet.count){
+                    let nsNotification = NSNotification(name: NSNotification.Name(rawValue: Notifications.ResourcesArrived), object: nil)
+                    NotificationCenter.default.post(name: nsNotification.name, object: nil,
+                                                    userInfo:[Notifications.Route: self?.routeArray ?? [Route](),
+                                                              Notifications.Airport: self?.airportArray ?? [Airport](),
+                                                              Notifications.Airline: self?.airlineArray ?? [Airline]()])
                     completed()
                 }
             })
@@ -78,7 +83,7 @@ extension Processor{
                 preconditionFailure(RESOURCE_ERROR)
             }
             
-            OperationQueue.main.addOperation {
+           // OperationQueue.main.addOperation {
                 resourceArray.forEach({ (arg) in
                     guard let resourceDict = arg as? NSDictionary else{
                         preconditionFailure(RESOURCE_ERROR)
@@ -107,14 +112,9 @@ extension Processor{
                     
                 })
                 
-                let nsNotification = NSNotification(name: NSNotification.Name(rawValue: Notifications.ResourcesArrived), object: nil)
-                NotificationCenter.default.post(name: nsNotification.name, object: nil,
-                                                    userInfo:[Notifications.Route: self?.routeArray ?? [Route](),
-                                                            Notifications.Airport: self?.airportArray ?? [Airport](),
-                                                            Notifications.Airline: self?.airlineArray ?? [Airline]()])
-
+          
                 completed()
-            }
+         //   }
             
         }))
     }

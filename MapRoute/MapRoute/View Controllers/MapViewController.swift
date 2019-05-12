@@ -14,29 +14,51 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var txtToField: UITextField!
     
-//    @IBAction func btnFromTextClick(_ sender: UIButton) {
+    @IBOutlet weak var mapView: MKMapView!
+    var polylines: [MKPolyline]?
+    
+    //    @IBAction func btnFromTextClick(_ sender: UIButton) {
 //        if let vc = airportLocationSearchController{
 //            self.navigationController?.pushViewController(vc, animated: true)
 //        }
 //    }
     
     @IBAction func btnFindRouteOnClick(_ sender: UIButton) {
-        if(self.airportArray?.filter({$0.codeIATA == self.txtFromField.text}).count == 0){
+        guard let fromAirport = self.txtFromField.text,
+            let toAirport = self.txtToField.text else{
+                alertUser = "Airport information is not correct"
+                return
+        }
+        if(self.airportArray?.filter({$0.codeIATA == fromAirport}).count == 0){
             alertUser = "From Airport is not correct"
             return
         }
         
-        if(self.airportArray?.filter({$0.codeIATA == self.txtToField.text}).count == 0){
+        if(self.airportArray?.filter({$0.codeIATA == toAirport}).count == 0){
             alertUser = "To Airport is not correct"
             return
         }
         
+        if let overlays = self.polylines{
+            mapView.removeOverlays(overlays)
+        }
+//        for annotation in self.mapView.annotations {
+//            points.append(annotation.coordinate)
+//        }
+//        let polyline = MKPolyline(coordinates: points, count: points.count)
+//        mapView.addover(polyline)
+        
+        self.mapView.removeAnnotations(mapView.annotations)
+        
+        
+        self.getRoute(origin: fromAirport, destination: toAirport)
     }
     
     private static var modelObserver: NSObjectProtocol?
-    private var routeArray: [Route]?
-    private var airlineArray: [Airline]?
+//    private var routeArray: [Route]?
+//    private var airlineArray: [Airline]?
     private var airportArray: [Airport]?
+    private var graph: Graph?
     var fromResultSearchController: UISearchController!
     var toResultSearchController: UISearchController!
     
@@ -47,13 +69,14 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let _ = model.loadResources()
+        mapView.delegate = self
+        
 //        self.airportLocationSearchController = storyboard?.instantiateViewController(withIdentifier: "AirportLocationViewController") as? AirportLocationViewController
 //
 //        airportLocationSearchController?.model = self.model
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         //txtFromField.delegate = self
 //        txtFromField.addTarget(self, action: #selector(UITextFieldDelegate.textFieldDidBeginEditing(_:)), for: UIControl.Event.editingDidBegin)
         
@@ -83,14 +106,16 @@ class MapViewController: UIViewController, UITextFieldDelegate {
             [weak self] (notification: Notification) in
             
             if let s = self {
-                let info0 = notification.userInfo?[Notifications.Route]
-                s.routeArray = info0 as? [Route]
-                
-                let info1 = notification.userInfo?[Notifications.Airline]
-                s.airlineArray = info1 as? [Airline]
-                
+//                let info0 = notification.userInfo?[Notifications.Route]
+//                s.routeArray = info0 as? [Route]
+//
+//                let info1 = notification.userInfo?[Notifications.Airline]
+//                s.airlineArray = info1 as? [Airline]
+
                 let info2 = notification.userInfo?[Notifications.Airport]
                 s.airportArray = info2 as? [Airport]
+                
+                s.graph = s.model.getGraph()
             }
         }
     }
@@ -121,42 +146,42 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-extension MapViewController: CLLocationManagerDelegate{
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-       
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.first else { return }
-//        let span = MKCoordinateSpanMake(0.05, 0.05)
-//        let region = MKCoordinateRegion(center: location.coordinate, span: span)
-//        mapView.setRegion(region, animated: true)
-    }
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("error:: \(error)")
-    }
-}
+//extension MapViewController: CLLocationManagerDelegate{
+//    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+//
+//    }
+//
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+////        guard let location = locations.first else { return }
+////        let span = MKCoordinateSpanMake(0.05, 0.05)
+////        let region = MKCoordinateRegion(center: location.coordinate, span: span)
+////        mapView.setRegion(region, animated: true)
+//    }
+//
+//    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+//        print("error:: \(error)")
+//    }
+//}
 
-extension MapViewController: UITableViewDelegate, UITableViewDataSource{
-     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        //cell.textLabel?.text = model.filteredAirports[indexPath.row].codeIATA
-        return cell
-    }
-    
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-    }
-}
+//extension MapViewController: UITableViewDelegate, UITableViewDataSource{
+//     func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 0
+//    }
+//
+//     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        //cell.textLabel?.text = model.filteredAirports[indexPath.row].codeIATA
+//        return cell
+//    }
+//
+//     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+//    }
+//}
 
 extension MapViewController{
     var alertUser :  String{
@@ -168,5 +193,115 @@ extension MapViewController{
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
+    }
+}
+
+extension MapViewController{
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        
+        renderer.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
+        
+        renderer.lineWidth = 5.0
+        
+        return renderer
+    }
+    
+    func getRoute(origin: String, destination: String){
+        if let g = model.getGraph(){
+            let originNode = g.retrieveNode(key: origin) ?? Node()
+            let destinationNode = g.retrieveNode(key: destination) ?? Node()
+            let pathFinder = PathFinder()
+            if let path = pathFinder.shortestPath(source: originNode, destination: destinationNode){
+                self.displayRoute(path: path)
+            }
+            
+        }else{
+            alertUser = "Resources are still loading up. Please try again after few mins!!"
+        }
+    }
+    
+    func displayRoute(path: Path){
+        self.polylines = [MKPolyline]()
+        for i in 0..<path.nodeArray.count{
+            
+            if(i+1 == path.nodeArray.count){
+                break
+            }
+            
+            guard let sourceLatitude = path.nodeArray[safe: i]?.latitude,
+                let sourceLongitude = path.nodeArray[safe: i]?.longitude,
+                let destinationLatitude = path.nodeArray[safe: i + 1]?.latitude,
+                let destinationLongitude = path.nodeArray[safe: i + 1]?.longitude
+                else{
+                    alertUser = "Coordinate information was not fetched right. Please try again."
+                    return
+            }
+            let sourceLocation = CLLocationCoordinate2D(latitude: sourceLatitude, longitude: sourceLongitude)
+            let destinationLocation = CLLocationCoordinate2D(latitude: destinationLatitude, longitude: destinationLongitude)
+            
+           
+            let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
+            let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
+            
+//            let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+//            let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+            
+            let sourceAnnotation = MKPointAnnotation()
+            sourceAnnotation.title = path.nodeArray[safe: i]?.key
+            
+            if let location = sourcePlacemark.location {
+                sourceAnnotation.coordinate = location.coordinate
+            }
+            
+            
+            let destinationAnnotation = MKPointAnnotation()
+            destinationAnnotation.title = path.nodeArray[safe: i+1]?.key
+            
+            if let location = destinationPlacemark.location {
+                destinationAnnotation.coordinate = location.coordinate
+            }
+            self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+            
+            var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
+            
+            for annotation in self.mapView.annotations {
+                points.append(annotation.coordinate)
+            }
+            let polyline = MKPolyline(coordinates: points, count: points.count)
+            mapView.addOverlay(polyline)
+            self.polylines?.append(polyline)
+            
+//            // 7.
+//            let directionRequest = MKDirections.Request()
+//            directionRequest.source = sourceMapItem
+//            directionRequest.destination = destinationMapItem
+//            directionRequest.transportType = .transit
+//
+            // Calculate the direction
+//            let directions = MKDirections(request: directionRequest)
+//            directions.calculate { [unowned self] response, error in
+//                guard let unwrappedResponse = response else { return }
+//
+//                if (unwrappedResponse.routes.count > 0) {
+//                    self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
+//                    self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
+//                }
+//            }
+            
+        }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate{
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        if overlay is MKPolyline {
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            polylineRenderer.strokeColor = UIColor.blue
+            polylineRenderer.lineWidth = 5
+            return polylineRenderer
+        }
+        return nil
     }
 }

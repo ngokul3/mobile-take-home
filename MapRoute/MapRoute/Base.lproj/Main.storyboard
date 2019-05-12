@@ -89,6 +89,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="tdt-7j-KFJ"/>
                     <connections>
+                        <outlet property="mapView" destination="c6V-5P-KW6" id="kj0-vr-DGA"/>
                         <outlet property="searchBarView" destination="TNR-dq-B2x" id="FJr-pF-prJ"/>
                         <outlet property="searchDisplayController" destination="Qvo-pf-Xrd" id="ksp-aF-BWh"/>
                         <outlet property="txtFromField" destination="Y89-er-xk1" id="0Y2-I4-Lri"/>
