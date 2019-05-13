@@ -41,8 +41,8 @@ class MapRouteTests: XCTestCase {
         
         let algo = PathFinder()
         let path = algo.shortestPath(source: v1!, destination: v3!)
-        if let succession: [String] = path?.nodeArray.reversed().compactMap({ $0}).map({$0.key}) {
-            print("shortest path: \(succession)")
+        if let shortPath: [String] = path?.nodeArray.reversed().compactMap({ $0}).map({$0.key}) {
+            print("shortest path: \(shortPath)")
         }
         
     }

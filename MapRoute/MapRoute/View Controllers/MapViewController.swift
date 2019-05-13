@@ -123,7 +123,9 @@ extension MapViewController{
             let originNode = g.retrieveNode(key: origin) ?? Node()
             let destinationNode = g.retrieveNode(key: destination) ?? Node()
             let pathFinder = PathFinder()
-            if var path = pathFinder.shortestPath(source: originNode, destination: destinationNode){
+            if let path = pathFinder.shortestPath(source: originNode, destination: destinationNode){
+                let shortPath = path.nodeArray.reversed().compactMap({ $0}).map({$0.key.uppercased()})
+                alertUser = "Best path found: \(shortPath)"
                 self.displayRoute(path: path)
             }else{
                 alertUser = "No Route found"
@@ -174,12 +176,17 @@ extension MapViewController{
             
             var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
             
-            for annotation in self.mapView.annotations {
-                points.append(annotation.coordinate)
-            }
+            points.append(sourceAnnotation.coordinate)
+            points.append(destinationAnnotation.coordinate)
+//            for annotation in self.mapView.annotations {
+//                points.append(annotation.coordinate)
+//            }
             let polyline = MKPolyline(coordinates: points, count: points.count)
             mapView.addOverlay(polyline)
             self.polylines?.append(polyline)
+            
+           // self.mapView.removeAnnotations(mapView.annotations)
+            
         }
     }
 }
