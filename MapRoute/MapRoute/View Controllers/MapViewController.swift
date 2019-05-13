@@ -2,7 +2,7 @@
 //  MapViewController.swift
 //  MapRoute
 //
-//  Created by Gokula K Narasimhan on 5/9/19.
+//  Created by Gokul K Narasimhan on 5/9/19.
 //  Copyright © 2019 Gokul K Narasimhan. All rights reserved.
 //
 
@@ -73,18 +73,20 @@ class MapViewController: UIViewController, UITextFieldDelegate {
 extension MapViewController{
     @IBAction func btnFindRouteOnClick(_ sender: UIButton) {
         guard let fromAirport = self.txtFromField.text,
-            let toAirport = self.txtToField.text else{
-                alertUser = "Airport information is not correct"
+            let toAirport = self.txtToField.text,
+                self.txtFromField.text?.count ?? 0 > 0,
+                self.txtToField.text?.count ?? 0 > 0 else{
+                alertUser = "Please enter both From and To Airport Code. You can search for the code."
                 return
         }
         
         if(self.airportArray?.filter({$0.codeIATA?.lowercased() == fromAirport.lowercased()}).count == 0){
-            alertUser = "From Airport is not correct"
+            alertUser = "From Airport code is not available"
             return
         }
         
         if(self.airportArray?.filter({$0.codeIATA?.lowercased() == toAirport.lowercased()}).count == 0){
-            alertUser = "To Airport is not correct"
+            alertUser = "To Airport code is not available"
             return
         }
         
@@ -178,15 +180,10 @@ extension MapViewController{
             
             points.append(sourceAnnotation.coordinate)
             points.append(destinationAnnotation.coordinate)
-//            for annotation in self.mapView.annotations {
-//                points.append(annotation.coordinate)
-//            }
+
             let polyline = MKPolyline(coordinates: points, count: points.count)
             mapView.addOverlay(polyline)
             self.polylines?.append(polyline)
-            
-           // self.mapView.removeAnnotations(mapView.annotations)
-            
         }
     }
 }
