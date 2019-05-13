@@ -17,7 +17,6 @@ struct Notifications {
 }
 
 public class Node {
-    
     var key: String
     var neighbors: [Edge]
     public var visited: Bool
@@ -39,7 +38,6 @@ public class Node {
 
 
 public class Edge {
-    
     var neighbor: Node
     var distance: Double
     
@@ -51,18 +49,14 @@ public class Edge {
 }
 
 public class Graph {
-    
     private var nodeDict: [String: Node]
-    public var isDirected: Bool
-     
+    
     init() {
         nodeDict = [String: Node]()
-        isDirected = true
     }
     
-    //create a new vertex
     func addNode(airport: Airport) -> Node? {
-        if let key = airport.codeIATA{
+        if let key = airport.codeIATA?.lowercased(){
             if(nodeDict[key] != nil){
                 return nil
             }
@@ -72,7 +66,6 @@ public class Graph {
             childNode.longitude = airport.longitude
             
             nodeDict[key] = childNode
-            
             return childNode
         }
         return nil
@@ -83,21 +76,10 @@ public class Graph {
         newEdge.neighbor = neighbor
         newEdge.distance = distance
         source.neighbors.append(newEdge)
-        //check condition for an undirected graph
-        if isDirected == false {
-            //create a new reversed edge
-            let reverseEdge = Edge()
-            
-            //establish the reversed properties
-            reverseEdge.neighbor = source
-            reverseEdge.distance = distance
-            neighbor.neighbors.append(reverseEdge)
-        }
     }
     
-    
     func retrieveNode(key:String)->Node?{
-        return nodeDict[key]
+        return nodeDict[key.lowercased()]
     }
     
     func depthFirstSearch(source: Node) -> [String]? {
@@ -111,8 +93,6 @@ public class Graph {
         }
         return nodesExplored
     }
-    
-
 }
 
 class Path {
@@ -121,8 +101,7 @@ class Path {
     public let knownPath: Path?
     
     init(to node: Node, edgeOpt: Edge? , knownPath: Path?) {
-        if
-            let knownPath = knownPath,
+        if let knownPath = knownPath,
             let viaConnection = edgeOpt {
             self.totalDistance = viaConnection.distance + knownPath.totalDistance
         } else {
@@ -137,11 +116,10 @@ class Path {
 extension Path {
     var nodeArray: [Node] {
         var array: [Node] = [self.node]
-        
         var iterativePath = self
+        
         while let path = iterativePath.knownPath {
             array.append(path.node)
-            
             iterativePath = path
         }
         

@@ -23,6 +23,9 @@ class Processor{
     var airportArray = [Airport]()
     var airlineArray = [Airline]()
     
+    /* Generates Node for every airport and stores it in a Dictionary object
+        While creating edge, it gets nodes from dictionary
+     */
     lazy var airportGraph : ()->Graph = {
         var nodeDict = [String: Node]()
         var locationDict = [String: CLLocationCoordinate2D]()
@@ -64,7 +67,7 @@ extension Processor{
                                                     userInfo:[Notifications.Route: self?.routeArray ?? [Route](),
                                                               Notifications.Airport: self?.airportArray ?? [Airport](),
                                                               Notifications.Airline: self?.airlineArray ?? [Airline]()])
-                    completed()
+                    completed() //Not really required. Can be used to send user friendly messages
                 }
             })
         }
@@ -83,39 +86,34 @@ extension Processor{
                 preconditionFailure(RESOURCE_ERROR)
             }
             
-           // OperationQueue.main.addOperation {
-                resourceArray.forEach({ (arg) in
-                    guard let resourceDict = arg as? NSDictionary else{
-                        preconditionFailure(RESOURCE_ERROR)
-                    }
-                    
-                    switch resource{
-                        
-                    case .route:
-                            let routeObjOpt = self?.loadRoute(resourceDict: resourceDict)
-                            if let routeObj = routeObjOpt{
-                                self?.routeArray.append(routeObj)
-                            }
-                        
-                    case .airport:
-                            let airportObjOpt = self?.loadAirport(resourceDict: resourceDict)
-                            if let airportObj = airportObjOpt{
-                                self?.airportArray.append(airportObj)
-                            }
-                        
-                    case .airline:
-                            let airlineObjOpt = self?.loadAirline(resourceDict: resourceDict)
-                            if let airlineObj = airlineObjOpt{
-                                self?.airlineArray.append(airlineObj)
-                            }
-                    }
-                    
-                })
+            resourceArray.forEach({ (arg) in
+                guard let resourceDict = arg as? NSDictionary else{
+                    preconditionFailure(RESOURCE_ERROR)
+                }
                 
-          
-                completed()
-         //   }
-            
+                switch resource{
+                    
+                case .route:
+                        let routeObjOpt = self?.loadRoute(resourceDict: resourceDict)
+                        if let routeObj = routeObjOpt{
+                            self?.routeArray.append(routeObj)
+                        }
+                    
+                case .airport:
+                        let airportObjOpt = self?.loadAirport(resourceDict: resourceDict)
+                        if let airportObj = airportObjOpt{
+                            self?.airportArray.append(airportObj)
+                        }
+                    
+                case .airline:
+                        let airlineObjOpt = self?.loadAirline(resourceDict: resourceDict)
+                        if let airlineObj = airlineObjOpt{
+                            self?.airlineArray.append(airlineObj)
+                        }
+                }
+                
+            })
+            completed()
         }))
     }
     

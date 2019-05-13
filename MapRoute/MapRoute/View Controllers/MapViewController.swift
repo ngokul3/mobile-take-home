@@ -68,12 +68,6 @@ class MapViewController: UIViewController, UITextFieldDelegate {
             [weak self] (notification: Notification) in
             
             if let s = self {
-//                let info0 = notification.userInfo?[Notifications.Route]
-//                s.routeArray = info0 as? [Route]
-//
-//                let info1 = notification.userInfo?[Notifications.Airline]
-//                s.airlineArray = info1 as? [Airline]
-
                 let info2 = notification.userInfo?[Notifications.Airport]
                 s.airportArray = info2 as? [Airport]
                 
@@ -116,12 +110,12 @@ extension MapViewController{
                 alertUser = "Airport information is not correct"
                 return
         }
-        if(self.airportArray?.filter({$0.codeIATA == fromAirport}).count == 0){
+        if(self.airportArray?.filter({$0.codeIATA?.lowercased() == fromAirport.lowercased()}).count == 0){
             alertUser = "From Airport is not correct"
             return
         }
         
-        if(self.airportArray?.filter({$0.codeIATA == toAirport}).count == 0){
+        if(self.airportArray?.filter({$0.codeIATA?.lowercased() == toAirport.lowercased()}).count == 0){
             alertUser = "To Airport is not correct"
             return
         }
@@ -201,14 +195,14 @@ extension MapViewController{
             let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
             
             let sourceAnnotation = MKPointAnnotation()
-            sourceAnnotation.title = path.nodeArray[safe: i]?.key
+            sourceAnnotation.title = path.nodeArray[safe: i]?.key.uppercased()
             
             if let location = sourcePlacemark.location {
                 sourceAnnotation.coordinate = location.coordinate
             }
             
             let destinationAnnotation = MKPointAnnotation()
-            destinationAnnotation.title = path.nodeArray[safe: i+1]?.key
+            destinationAnnotation.title = path.nodeArray[safe: i+1]?.key.uppercased()
             
             if let location = destinationPlacemark.location {
                 destinationAnnotation.coordinate = location.coordinate

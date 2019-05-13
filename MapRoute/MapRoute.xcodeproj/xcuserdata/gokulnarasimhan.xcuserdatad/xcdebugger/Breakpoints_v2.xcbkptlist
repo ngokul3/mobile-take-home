@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Network/Network.swift"
-            timestampString = "579399627.058463"
+            timestampString = "579402376.302814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Processor/Processor.swift"
-            timestampString = "579399627.058556"
+            timestampString = "579402376.30292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "setUpResources(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Processor/Processor.swift"
-            timestampString = "579399627.059065"
+            timestampString = "579402376.303556"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "processResource(resource:completed:)"
             landmarkType = "7">
             <Locations>
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Network/Network.swift"
-            timestampString = "579399627.059446"
+            timestampString = "579402376.304147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Network/Network.swift"
-            timestampString = "579399627.059515"
+            timestampString = "579402376.304243"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Network/Network.swift"
-            timestampString = "579399627.059576"
+            timestampString = "579402376.304319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Network/Network.swift"
-            timestampString = "579399627.0596319"
+            timestampString = "579402376.304399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Processor/Processor.swift"
-            timestampString = "579399627.059689"
+            timestampString = "579402376.304472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "setUpResources(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.060058"
+            timestampString = "579402376.304978"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.060642"
+            timestampString = "579402376.305757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Model/ModelManager.swift"
-            timestampString = "579399627.061134"
+            timestampString = "579402376.306473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -298,7 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Model/ModelManager.swift"
-            timestampString = "579399627.06124"
+            timestampString = "579402376.306578"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/View Controllers/MapViewController.swift"
-            timestampString = "579399627.061573"
+            timestampString = "579402376.306914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "getRoute(origin:destination:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/shared.swift"
-            timestampString = "579399627.0624141"
+            timestampString = "579402376.30799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "shortestPath(source:destination:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -438,15 +438,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/shared.swift"
-            timestampString = "579399627.062824"
+            timestampString = "579402376.3084069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "retrieveNode(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/shared.swift"
-            timestampString = "579399627.063168"
+            timestampString = "579402376.30874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "addNode(airport:)"
             landmarkType = "7">
             <Locations>
@@ -474,12 +474,12 @@
                   moduleName = "MapRoute"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gokulnarasimhan/GuestLogix/mobile-take-home/MapRoute/MapRoute/shared.swift"
-                  timestampString = "579389172.246906"
+                  timestampString = "579402006.755845"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "159">
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "160">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -489,12 +489,12 @@
                   moduleName = "MapRoute"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gokulnarasimhan/GuestLogix/mobile-take-home/MapRoute/MapRoute/shared.swift"
-                  timestampString = "579389172.250122"
+                  timestampString = "579402006.758365"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "968">
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "978">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -506,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/Processor/Processor.swift"
-            timestampString = "579399627.0635099"
+            timestampString = "579402376.30908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "airportGraph"
             landmarkType = "24">
          </BreakpointContent>
@@ -522,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/View Controllers/MapViewController.swift"
-            timestampString = "579399627.063836"
+            timestampString = "579402376.309396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -537,28 +537,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MapRoute/Processor/Processor.swift"
-            timestampString = "579399627.064527"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "processResource(resource:completed:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MapRoute/shared.swift"
-            timestampString = "579399627.064855"
+            timestampString = "579402376.310091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "shortestPath(source:destination:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -570,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/shared.swift"
-            timestampString = "579399627.0651799"
+            timestampString = "579402376.310455"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "shortestPath(source:destination:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -586,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRoute/shared.swift"
-            timestampString = "579399627.065498"
+            timestampString = "579402376.3107769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "shortestPath(source:destination:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,7 +586,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.065818"
+            timestampString = "579402376.311098"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
@@ -618,7 +602,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.066142"
+            timestampString = "579402376.311645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -634,7 +618,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.06647"
+            timestampString = "579402376.312077"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -697,7 +681,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.0667911"
+            timestampString = "579402376.312497"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -713,7 +697,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.0671051"
+            timestampString = "579402376.312879"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -729,7 +713,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.067415"
+            timestampString = "579402376.31322"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
@@ -745,7 +729,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.067718"
+            timestampString = "579402376.313539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
@@ -761,12 +745,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapRouteTests/MapRouteTests.swift"
-            timestampString = "579399627.068012"
+            timestampString = "579402376.313866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
             landmarkName = "testSameIATACode()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapRouteTests/MapRouteTests.swift"
+            timestampString = "579402376.314191"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "testUpperCaseVsLowerCase()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
