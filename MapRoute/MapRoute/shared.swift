@@ -21,7 +21,6 @@ public class Node {
     var key: String
     var neighbors: [Edge]
     public var visited: Bool
-    public var distance: Int?
     public var latitude: Double?
     public var longitude: Double?
     

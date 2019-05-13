@@ -17,46 +17,8 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var polylines: [MKPolyline]?
     
-    //    @IBAction func btnFromTextClick(_ sender: UIButton) {
-//        if let vc = airportLocationSearchController{
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
-//    }
-    
-    @IBAction func btnFindRouteOnClick(_ sender: UIButton) {
-        guard let fromAirport = self.txtFromField.text,
-            let toAirport = self.txtToField.text else{
-                alertUser = "Airport information is not correct"
-                return
-        }
-        if(self.airportArray?.filter({$0.codeIATA == fromAirport}).count == 0){
-            alertUser = "From Airport is not correct"
-            return
-        }
-        
-        if(self.airportArray?.filter({$0.codeIATA == toAirport}).count == 0){
-            alertUser = "To Airport is not correct"
-            return
-        }
-        
-        if let overlays = self.polylines{
-            mapView.removeOverlays(overlays)
-        }
-//        for annotation in self.mapView.annotations {
-//            points.append(annotation.coordinate)
-//        }
-//        let polyline = MKPolyline(coordinates: points, count: points.count)
-//        mapView.addover(polyline)
-        
-        self.mapView.removeAnnotations(mapView.annotations)
-        
-        
-        self.getRoute(origin: fromAirport, destination: toAirport)
-    }
     
     private static var modelObserver: NSObjectProtocol?
-//    private var routeArray: [Route]?
-//    private var airlineArray: [Airline]?
     private var airportArray: [Airport]?
     private var graph: Graph?
     var fromResultSearchController: UISearchController!
@@ -146,43 +108,35 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-//extension MapViewController: CLLocationManagerDelegate{
-//    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-//
-//    }
-//
-//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-////        guard let location = locations.first else { return }
-////        let span = MKCoordinateSpanMake(0.05, 0.05)
-////        let region = MKCoordinateRegion(center: location.coordinate, span: span)
-////        mapView.setRegion(region, animated: true)
-//    }
-//
-//    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-//        print("error:: \(error)")
-//    }
-//}
 
-//extension MapViewController: UITableViewDelegate, UITableViewDataSource{
-//     func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
-//    }
-//
-//     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        //cell.textLabel?.text = model.filteredAirports[indexPath.row].codeIATA
-//        return cell
-//    }
-//
-//     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-//    }
-//}
-
+extension MapViewController{
+    @IBAction func btnFindRouteOnClick(_ sender: UIButton) {
+        guard let fromAirport = self.txtFromField.text,
+            let toAirport = self.txtToField.text else{
+                alertUser = "Airport information is not correct"
+                return
+        }
+        if(self.airportArray?.filter({$0.codeIATA == fromAirport}).count == 0){
+            alertUser = "From Airport is not correct"
+            return
+        }
+        
+        if(self.airportArray?.filter({$0.codeIATA == toAirport}).count == 0){
+            alertUser = "To Airport is not correct"
+            return
+        }
+        
+        if let overlays = self.polylines{
+            mapView.removeOverlays(overlays)
+        }
+        
+        self.mapView.removeAnnotations(mapView.annotations)
+        
+        
+        self.getRoute(origin: fromAirport, destination: toAirport)
+    }
+    
+}
 extension MapViewController{
     var alertUser :  String{
         get{
@@ -215,8 +169,9 @@ extension MapViewController{
             let pathFinder = PathFinder()
             if let path = pathFinder.shortestPath(source: originNode, destination: destinationNode){
                 self.displayRoute(path: path)
+            }else{
+                alertUser = "No Route found"
             }
-            
         }else{
             alertUser = "Resources are still loading up. Please try again after few mins!!"
         }
@@ -245,16 +200,12 @@ extension MapViewController{
             let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
             let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
             
-//            let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-//            let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-            
             let sourceAnnotation = MKPointAnnotation()
             sourceAnnotation.title = path.nodeArray[safe: i]?.key
             
             if let location = sourcePlacemark.location {
                 sourceAnnotation.coordinate = location.coordinate
             }
-            
             
             let destinationAnnotation = MKPointAnnotation()
             destinationAnnotation.title = path.nodeArray[safe: i+1]?.key
@@ -272,24 +223,6 @@ extension MapViewController{
             let polyline = MKPolyline(coordinates: points, count: points.count)
             mapView.addOverlay(polyline)
             self.polylines?.append(polyline)
-            
-//            // 7.
-//            let directionRequest = MKDirections.Request()
-//            directionRequest.source = sourceMapItem
-//            directionRequest.destination = destinationMapItem
-//            directionRequest.transportType = .transit
-//
-            // Calculate the direction
-//            let directions = MKDirections(request: directionRequest)
-//            directions.calculate { [unowned self] response, error in
-//                guard let unwrappedResponse = response else { return }
-//
-//                if (unwrappedResponse.routes.count > 0) {
-//                    self.mapView.addOverlay(unwrappedResponse.routes[0].polyline)
-//                    self.mapView.setVisibleMapRect(unwrappedResponse.routes[0].polyline.boundingMapRect, animated: true)
-//                }
-//            }
-            
         }
     }
 }

@@ -10,53 +10,18 @@ import XCTest
 @testable import MapRoute
 
 class MapRouteTests: XCTestCase {
-    var routeArray = [Route]()
-    var airlineArray = [Airline]()
-    var airportArray = [Airport]()
-    
-    override func setUp() {
+      override func setUp() {
         
     }
     
-    func testGraph(){
-        //Distance is 2
-        let routeObj1 = Route()
-        routeObj1.origin = "A"
-        routeObj1.destination = "B"
-        
-        //Distance is 8
-        let routeObj2 = Route()
-        routeObj2.origin = "A"
-        routeObj2.destination = "C"
-        
-        
-        //Distance is 1
-        let routeObj3 = Route()
-        routeObj3.origin = "B"
-        routeObj3.destination = "D"
-        
-        //Distance is 2
-        let routeObj4 = Route()
-        routeObj4.origin = "D"
-        routeObj4.destination = "C"
-        
-        let routeObj5 = Route()
-        routeObj5.origin = "E"
-        routeObj5.destination = "F"
-        
-        routeArray.append(routeObj1)
-        routeArray.append(routeObj2)
-        routeArray.append(routeObj3)
-        routeArray.append(routeObj4)
-        routeArray.append(routeObj5)
-        
+    func testDisplayGraphAndBaseCase(){
         let graph = Graph()
-        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
-        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
-        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
-        let v4 = graph.addNode(airport: Airport(name: "D", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
-        let v5 = graph.addNode(airport: Airport(name: "E", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
-        let v6 = graph.addNode(airport: Airport(name: "F", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: "C", latitude: nil, longitude: nil))
+        let v4 = graph.addNode(airport: Airport(name: "D", city: nil, country: nil, codeIATA: "D", latitude: nil, longitude: nil))
+        let v5 = graph.addNode(airport: Airport(name: "E", city: nil, country: nil, codeIATA: "E", latitude: nil, longitude: nil))
+        let v6 = graph.addNode(airport: Airport(name: "F", city: nil, country: nil, codeIATA: "F", latitude: nil, longitude: nil))
         
         //Forced unwrap ignore - Just testing with known values
         
@@ -81,36 +46,163 @@ class MapRouteTests: XCTestCase {
         }
         
     }
-    func testDirectConnection(){
+    func testDirectConnectionBetween2Nodes(){
 
-        let routeObj1 = Route()
-        routeObj1.origin = "YAM"
-        routeObj1.destination = "YYZ"
-
-        let routeObj2 = Route()
-        routeObj2.origin = "YBC"
-        routeObj2.destination = "YUL"
-
-        routeArray.append(routeObj1)
-        routeArray.append(routeObj2)
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: "C", latitude: nil, longitude: nil))
         
-        var airportObj1 = Airport()
-        airportObj1.codeIATA = "YAM"
-        airportArray.append(airportObj1)
+        //Forced unwrap ignore - Just testing with known values
         
-        var airportObj2 = Airport()
-        airportObj2.codeIATA = "YYZ"
-        airportArray.append(airportObj2)
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        graph.addEdge(source: v1!, neighbor: v3!, distance: 8)
         
-        var airportObj3 = Airport()
-        airportObj3.codeIATA = "YUL"
-        airportArray.append(airportObj3)
+        let algo = PathFinder()
+        var path = algo.shortestPath(source: v1!, destination: v2!)
         
-       // let routeMaker = RouteMaker()
-//        let results = routeMaker.findConnection(routeArray: routeArray, airlineArray: airlineArray, airportArray: airportArray)
-//        XCTAssert(results == nil)
-
+        XCTAssert(path?.nodeArray.count == 2)
+        XCTAssert(path?.totalDistance ?? 0.0 == 2.0)
+        
+        path = algo.shortestPath(source: v2!, destination: v3!)
+        XCTAssert(path == nil)
+        
+         path = algo.shortestPath(source: v1!, destination: v1!)
+        XCTAssert(path == nil)
     }
 
+    func testSameDistance2Route(){
+        //A->C is 8
+        //A->B->D->C is also 8
+        
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: "C", latitude: nil, longitude: nil))
+        let v4 = graph.addNode(airport: Airport(name: "D", city: nil, country: nil, codeIATA: "D", latitude: nil, longitude: nil))
+        
+        //Forced unwrap ignore - Just testing with known values
+        
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        graph.addEdge(source: v1!, neighbor: v3!, distance: 8)
+        graph.addEdge(source: v2!, neighbor: v4!, distance: 1)
+        graph.addEdge(source: v4!, neighbor: v3!, distance: 5)
+        
+        let algo = PathFinder()
+        let path = algo.shortestPath(source: v1!, destination: v3!)
+        
+        XCTAssert(path?.nodeArray.count == 2)
+        XCTAssert(path?.totalDistance ?? 0.0 == 8.0)
+        
+    }
+    
+    func testCycleRoute(){
+        //A->B is 2
+        //B->A is 2
+        //B->C is 3
+        
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: "C", latitude: nil, longitude: nil))
+        
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        graph.addEdge(source: v2!, neighbor: v1!, distance: 2)
+        graph.addEdge(source: v2!, neighbor: v3!, distance: 3)
+        
+        let algo = PathFinder()
+        var path = algo.shortestPath(source: v1!, destination: v3!)
+        
+        XCTAssert(path?.nodeArray.count == 3)
+        XCTAssert(path?.totalDistance ?? 0.0 == 5.0)
+        
+        path = algo.shortestPath(source: v1!, destination: v1!)
+        
+        XCTAssert(path == nil)
+    }
+    
+    func test2CyleRoutes(){
+        //A->B is 2
+        //B->A is 2
+        //B->C is 3
+        //C->B is 3
+        //C->D is 4
+        
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: "C", latitude: nil, longitude: nil))
+        let v4 = graph.addNode(airport: Airport(name: "D", city: nil, country: nil, codeIATA: "D", latitude: nil, longitude: nil))
+        
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        graph.addEdge(source: v2!, neighbor: v1!, distance: 2)
+        graph.addEdge(source: v2!, neighbor: v3!, distance: 3)
+        graph.addEdge(source: v3!, neighbor: v2!, distance: 3)
+        graph.addEdge(source: v3!, neighbor: v4!, distance: 4)
+        
+        let algo = PathFinder()
+        let path = algo.shortestPath(source: v1!, destination: v4!)
+        
+        XCTAssert(path?.nodeArray.count == 4)
+        XCTAssert(path?.totalDistance ?? 0.0 == 9.0)
+    }
+    
+    func test1WayRoute(){
+        //A->B is 2
+        //Route from B to A does not exist
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        let algo = PathFinder()
+        let path = algo.shortestPath(source: v2!, destination: v1!)
+        XCTAssert(path == nil)
+    }
+    
+    func testMultipleCycleThroughMultipleNode(){
+        //A->B is 2
+        //B->A is 2
+        //B->C is 3
+        //C->B is 3
+        //C->D is 11
+        //D->E is 5
+        //E->F is 8
+        //F->A is 8
+        //D->A is 20
+        //D->B is 5
+        
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        let v3 = graph.addNode(airport: Airport(name: "C", city: nil, country: nil, codeIATA: "C", latitude: nil, longitude: nil))
+        let v4 = graph.addNode(airport: Airport(name: "D", city: nil, country: nil, codeIATA: "D", latitude: nil, longitude: nil))
+        let v5 = graph.addNode(airport: Airport(name: "E", city: nil, country: nil, codeIATA: "E", latitude: nil, longitude: nil))
+        let v6 = graph.addNode(airport: Airport(name: "F", city: nil, country: nil, codeIATA: "F", latitude: nil, longitude: nil))
+        
+        graph.addEdge(source: v1!, neighbor: v2!, distance: 2)
+        graph.addEdge(source: v2!, neighbor: v1!, distance: 2)
+        graph.addEdge(source: v2!, neighbor: v3!, distance: 3)
+        graph.addEdge(source: v3!, neighbor: v2!, distance: 3)
+        graph.addEdge(source: v3!, neighbor: v4!, distance: 11)
+        graph.addEdge(source: v4!, neighbor: v5!, distance: 5)
+        graph.addEdge(source: v5!, neighbor: v6!, distance: 8)
+        graph.addEdge(source: v6!, neighbor: v1!, distance: 18)
+        graph.addEdge(source: v4!, neighbor: v2!, distance: 5)
+        graph.addEdge(source: v4!, neighbor: v1!, distance: 25)
+        
+        let algo = PathFinder()
+        let path = algo.shortestPath(source: v4!, destination: v1!)
+        XCTAssert(path?.nodeArray.count == 3)
+        XCTAssert(path?.totalDistance ?? 0.0 == 7.0)
+    }
  
+    func testSameIATACode(){
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))
+       
+        XCTAssert(v1 != nil)
+        XCTAssert(v2 == nil)
+    }
 }
