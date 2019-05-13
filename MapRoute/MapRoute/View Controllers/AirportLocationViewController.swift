@@ -8,27 +8,22 @@
 
 import UIKit
 
-class AirportLocationViewController: UITableViewController {
+class AirportLocationViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
-    //private var airportArray: [Airport]?
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func btnDoneClick(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     var resultSearchController: UISearchController!
     var model : ModelManagerProtocol?
+    var doneDetailVC: ((String?) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resultSearchController =  UISearchController(searchResultsController: self)
-        
-        resultSearchController.searchResultsUpdater = self
-        let locationsearchBar = resultSearchController!.searchBar
-        locationsearchBar.placeholder = "from location"
-        locationsearchBar.sizeToFit()
-        navigationItem.titleView = resultSearchController.searchBar
-        
-         resultSearchController.hidesNavigationBarDuringPresentation = false
-        resultSearchController.dimsBackgroundDuringPresentation = true
-        definesPresentationContext = false
-        
+        self.searchBar.becomeFirstResponder()
+        self.model?.currentFilter = ""
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:   Notifications.AirportFiltered), object: nil, queue: OperationQueue.main) {
             
             [weak self] (notification: Notification) in
@@ -37,20 +32,25 @@ class AirportLocationViewController: UITableViewController {
             }
         }
       }
+}
+
+extension AirportLocationViewController{
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        self.definesPresentationContext = true
-//        
-//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(model?.currentFilter != searchText){
+            model?.currentFilter = searchText
+        }
+    }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//        self.definesPresentationContext = false
-//
-//    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        model?.currentFilter = ""
+        searchBar.resignFirstResponder()
+    }
 }
 
 extension AirportLocationViewController{
@@ -69,22 +69,28 @@ extension AirportLocationViewController: UISearchResultsUpdating{
 }
 
 extension AirportLocationViewController{
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model?.filteredAirports.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = model?.filteredAirports[indexPath.row].codeIATA
+        let airportName = model?.filteredAirports[indexPath.row].name ?? ""
+        let airportCode = model?.filteredAirports[indexPath.row].codeIATA ?? ""
+        let displayString =  airportCode + " - " + airportName
+        cell.textLabel?.text = displayString
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        let airportCode = model?.filteredAirports[indexPath.row].codeIATA
+        doneDetailVC?(airportCode)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
