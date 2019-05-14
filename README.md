@@ -14,7 +14,7 @@ User can enter airport code in lower or upper case.
 
 ## Data Structure
 
-Lazy property airportGraph will frame Graph object in the runtime. This happens lazily, and comes with an advantage that graph object gets constructed only once. 
+Uses Graph
 
 
 ## Shortest Route

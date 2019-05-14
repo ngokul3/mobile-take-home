@@ -17,7 +17,6 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     private var polylines: [MKPolyline]?
     private static var modelObserver: NSObjectProtocol?
     private var airportArray: [Airport]?
-    private var graph: Graph?
     
     @IBOutlet weak var searchBarView: UIView!
     private let model = ModelManager.getInstance()
@@ -31,8 +30,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
             if let s = self {
                 let info2 = notification.userInfo?[Notifications.Airport]
                 s.airportArray = info2 as? [Airport]
-                s.graph = s.model.getGraph()
-            }
+             }
         }
     }
 
