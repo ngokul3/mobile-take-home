@@ -16,6 +16,7 @@ class AirportLocationViewController: UIViewController,UITableViewDataSource, UIT
     @IBAction func btnDoneClick(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     var resultSearchController: UISearchController!
     var model : ModelManagerProtocol?
     var doneDetailVC: ((String?) -> Void)?

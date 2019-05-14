@@ -148,7 +148,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOj-gX-56M">
-                                <rect key="frame" x="57" y="54" width="357" height="56"/>
+                                <rect key="frame" x="54" y="54" width="360" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="eqp-We-59v" id="Y0b-nI-qlS"/>
@@ -182,8 +182,8 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJP-XD-DkZ">
-                                <rect key="frame" x="10" y="67" width="37" height="30"/>
-                                <state key="normal" title="Done"/>
+                                <rect key="frame" x="10" y="67" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="btnDoneClick:" destination="eqp-We-59v" eventType="touchUpInside" id="bya-IZ-GTj"/>
                                 </connections>

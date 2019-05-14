@@ -206,6 +206,15 @@ class MapRouteTests: XCTestCase {
         XCTAssert(v2 == nil)
     }
     
+    func testNULLIATACode(){
+        let graph = Graph()
+        let v1 = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: nil, latitude: nil, longitude: nil))
+        let v2 = graph.addNode(airport: Airport(name: "B", city: nil, country: nil, codeIATA: "B", latitude: nil, longitude: nil))
+        
+        XCTAssert(v1 == nil)
+        XCTAssert(v2 != nil)
+    }
+    
     func testUpperCaseVsLowerCase(){
         let graph = Graph()
         let _ = graph.addNode(airport: Airport(name: "A", city: nil, country: nil, codeIATA: "A", latitude: nil, longitude: nil))

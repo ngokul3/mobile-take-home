@@ -8,25 +8,19 @@
 
 import UIKit
 import MapKit
-let handleTextChangeNotification = "handleTextChangeNotification"
+
 class MapViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var txtFromField: UITextField!
-    
     @IBOutlet weak var txtToField: UITextField!
-    
     @IBOutlet weak var mapView: MKMapView!
-    var polylines: [MKPolyline]?
     
-    
+    private var polylines: [MKPolyline]?
     private static var modelObserver: NSObjectProtocol?
     private var airportArray: [Airport]?
     private var graph: Graph?
-    var fromResultSearchController: UISearchController!
-    var toResultSearchController: UISearchController!
     
     @IBOutlet weak var searchBarView: UIView!
-    let locationManager = CLLocationManager()
-    private var model = ModelManager.getInstance()
+    private let model = ModelManager.getInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +31,6 @@ class MapViewController: UIViewController, UITextFieldDelegate {
             if let s = self {
                 let info2 = notification.userInfo?[Notifications.Airport]
                 s.airportArray = info2 as? [Airport]
-                
                 s.graph = s.model.getGraph()
             }
         }
@@ -97,20 +90,22 @@ extension MapViewController{
         self.mapView.removeAnnotations(mapView.annotations)
         self.getRoute(origin: fromAirport, destination: toAirport)
     }
-    
 }
+
+
 extension MapViewController{
     var alertUser :  String{
         get{
             preconditionFailure("You cannot read from this object")
         }
         set{
-            let alert = UIAlertController(title: "Attention", message: newValue, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Information", message: newValue, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
     }
 }
+
 
 extension MapViewController{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

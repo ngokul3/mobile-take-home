@@ -17,7 +17,6 @@
 		90373A762285C4D900D1716A /* airlines.json in Resources */ = {isa = PBXBuildFile; fileRef = 90373A752285C4D900D1716A /* airlines.json */; };
 		90373A7F2285CA4E00D1716A /* shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90373A7E2285CA4E00D1716A /* shared.swift */; };
 		90373A852285D69C00D1716A /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90373A842285D69C00D1716A /* ModelManager.swift */; };
-		90373A902285E8A400D1716A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90373A8F2285E8A400D1716A /* ToDo.swift */; };
 		90373ACE22883B7900D1716A /* AirportLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90373ACD22883B7900D1716A /* AirportLocationViewController.swift */; };
 		90373AD8228899CF00D1716A /* searchImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 90373AD7228899CF00D1716A /* searchImage.jpeg */; };
 		90C526522284E70E00371AB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C526512284E70E00371AB2 /* AppDelegate.swift */; };
@@ -57,7 +56,6 @@
 		90373A752285C4D900D1716A /* airlines.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = airlines.json; sourceTree = "<group>"; };
 		90373A7E2285CA4E00D1716A /* shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shared.swift; sourceTree = "<group>"; };
 		90373A842285D69C00D1716A /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
-		90373A8F2285E8A400D1716A /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		90373ACD22883B7900D1716A /* AirportLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportLocationViewController.swift; sourceTree = "<group>"; };
 		90373AD7228899CF00D1716A /* searchImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = searchImage.jpeg; sourceTree = "<group>"; };
 		90C5264E2284E70E00371AB2 /* MapRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +105,6 @@
 				90373A652284EA6500D1716A /* Airline.swift */,
 				90373A672284EAD000D1716A /* Airport.swift */,
 				90373A842285D69C00D1716A /* ModelManager.swift */,
-				90373A8F2285E8A400D1716A /* ToDo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -342,7 +339,6 @@
 				90373A682284EAD000D1716A /* Airport.swift in Sources */,
 				90373A662284EA6500D1716A /* Airline.swift in Sources */,
 				90373A6B2284ED0A00D1716A /* Network.swift in Sources */,
-				90373A902285E8A400D1716A /* ToDo.swift in Sources */,
 				90373A6D2284FF0800D1716A /* Processor.swift in Sources */,
 				90373A642284EA0200D1716A /* Route.swift in Sources */,
 				90373A852285D69C00D1716A /* ModelManager.swift in Sources */,

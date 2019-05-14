@@ -18,8 +18,7 @@ class Network{
     private var routeJSONFileNameOpt : String?
     private var airportJSONFileNameOpt : String?
     private var airlineJSONFileNameOpt : String?
-    //private static var instance: NetworkProtocol?
-    private let RESOURCE_LIST = "ResourceList"
+     private let RESOURCE_LIST = "ResourceList"
     var resourceDictOpt: [String: String]?
     
     init()
@@ -37,17 +36,6 @@ class Network{
     }
 }
 
-//extension Network{
-//    static func getInstance() -> NetworkProtocol {
-//        
-//        if let inst = Network.instance {
-//            return inst
-//        }
-//        let inst = Network()
-//        Network.instance = inst
-//        return inst
-//    }
-//}
 
 extension Network: NetworkProtocol{
     func loadResource(resource: Resource, finished : @escaping (NSArray?, String?)->Void ) {

@@ -63,16 +63,21 @@ extension ModelManager{
         
         guard let airportArray = processor?.airportArray,
                     airportArray.count > 0 else{
-            preconditionFailure("Not able to fetch airport information") //Todo - Error handling - Wait until airport information get loaded
+            preconditionFailure("Not able to fetch airport information")
         }
         
         filteredAirports =  airportArray.filter({(arg1) in
             return arg1.codeIATA?.lowercased().contains(enteredName.lowercased()) ?? false
         })
+        
+        if filteredAirports.count == 0 {
+            filteredAirports =  airportArray.filter({(arg1) in
+                return arg1.name?.lowercased().contains(enteredName.lowercased()) ?? false
+            })
+        }
     }
     
  
-    
     func getGraph() -> Graph? {
         let graph = processor?.airportGraph()
         return graph
