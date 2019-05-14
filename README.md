@@ -1,28 +1,26 @@
-# Guestlogix Take Home Test - Mobile
+## Resource File populate
 
-At Guestlogix we feel that putting developers on the spot with advanced algorithmic puzzles doesn’t exactly highlight one’s true skillset. The intention of this assessment is to see how you approach and tackle a problem in the real world, not quivering in front of a whiteboard.
+Resource files  routes.csv, airport.csv and airline.csv are manually converted to JSON. These JSON files are added as resource to Xcode. Name of these resource files are configuratble in plist. Code looks at plist in the runtime and populates the corresponding model objects.
 
-### What is the test?
+## Airport Code / Name search controller
 
-You will be building a mobile application to draw a route on a map between two (or more) airports. Included in this repository is a set of Airport, Airline, and Route data. Your task is to provide the user with a form to enter the origin and destination airports and display a route that connects them (if any). If a route between the origin and destination includes more than one stopover, the line drawn on the map must go through all airports in order.
+User can enter airport code if he known or, can look up airport by clicking lens image in the text field. This will take user to AirportLocationViewController. This ViewController has option to search by Airport code or Airport name.
 
-### User Stories
 
-- As a user I can enter IATA codes of an origin and a destination airport and view a path between the two on a map. Airports in the data set with a null IATA code are provided for the sake of completeness, and may be omitted.
-- As a user I can enter IATA codes of an origin and destination airport that are not connected by a direct route. In this case, the route drawn on the map must show the shortest possible travel path between the two airports, going through all airports visited along the way in order. For the sake of simplicity, the shortest path is defined as the one with the least transfer (ie. it will take the same amount of time to travel between two airports, regardless of the physical distance between them). Keep in mind that an indirect route can go through more than one transfer airport before it reaches its final destination.
-- As a user I am provided meaningful feedback should no route exist between the airports.
-- As a user I am provided meaningful feedback if information entered is incorrect.
+## Map View Controller
 
-### Requirements
+On select of a code from AirportLocationVC, airport code is populated into corresponding From or To text field. 
+User can enter airport code in lower or upper case.
 
-The application may be done in Xamarin or in any native language that runs on the Android or iOS platforms. Otherwise, you have complete freedom in terms of how you implement the solution, as long as all user requirements are met.
+## Data Structure
 
-### Submitting
+Lazy property airportGraph will frame Graph object in the runtime. This happens lazily, and also comes with an advantage that graph object constructed only once. 
 
-1. Fork this repository and provide your solution.
-2. Run through it one last time to make sure it works!
-3. Send an email to indicate that you have completed the challenge. 
 
-### Questions
+## Shortest Route
 
-If you have any questions during the challenge feel free to email Peter Samsonov at psamsonov@guestlogix.com. Whether it be a question about the requirements, submitting, anything, just send the email!
+Program uses Dijkstra's algorithm to calculate shortest route.
+
+## Unit Tests
+
+Please check unit tests to run through different cases. 
